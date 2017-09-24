@@ -50,6 +50,18 @@ row {
 .hide{
   display: none;
 }
+.fifty-right{
+  width: 49%;
+  float: right;
+}
+.fifty-left{
+  width: 49%;
+  float: left;
+}
+#createBtn{
+  float: left;
+  margin-left: 0px;
+}
 
 
 #closeBtn {

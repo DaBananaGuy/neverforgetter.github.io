@@ -34,28 +34,11 @@ firebase.auth().onAuthStateChanged(function(user) {
 addProjectBtn.addEventListener('click', ()=>{
     createNewProject();
 });
-//Today's date
-var today = new Date();
-var dd = today.getDate();
-var mm = today.getMonth()+1; //January is 0!
-var yyyy = today.getFullYear();
-
-if(dd<10) {
-    dd = '0'+dd
-} 
-
-if(mm<10) {
-    mm = '0'+mm
-} 
-
-today = mm + '/' + dd + '/' + yyyy;
 
 // Function to create new project
 function createNewProject(){
     document.getElementById('m-header').innerHTML = "<span id='closeBtn'><i class='fa fa-times'></i></span><h3 id='headerTxt'>Create A Project</h3>";
-    document.getElementById('modalTxt').innerHTML = '<input type="text" id="titleTxt" class="form-control form-control-lg float-center mb-2" placeholder="Enter Title"><textarea type="text" id="descTxt" class="form-control form-control-lg float-center mb-2" placeholder="Enter Description (Optional)"></textarea><input type="date" class="mb-3 form-control" id="dateTxt"><button id="createBtn" class="btn btn-lg btn-warning mb-3" onclick="createBtnAction()">Create!</button>';
-
-    document.getElementById('dateTxt').valueAsDate = new Date();    
+    document.getElementById('modalTxt').innerHTML = '<input type="text" id="titleTxt" class="form-control form-control-lg float-center mb-2" placeholder="Enter Title"><textarea type="text" id="descTxt" class="form-control form-control-lg float-center mb-2" placeholder="Enter Description (Optional)"></textarea><p class="text-secondary float-right fifty-right">Do you really have a due date?</p><input type="date" class="fifty-left float-left mb-3 form-control" id="dateTxt"><button id="createBtn" class="btn btn-lg btn-warning mb-3 float-left" onclick="createBtnAction()">Create!</button>';
 
     document.getElementById('modal-bg').style.display = 'block';
 }
@@ -86,7 +69,7 @@ function createBtnAction(){
     if (desc == "undefined"){
       desc = "";
     }
-    if (title != "" && date != "mm/dd/yyyy" && date != "") {
+    if (title != "") {
         createProject(title, desc, date);
     }
     
@@ -133,7 +116,9 @@ function gotData(data) {
         var title = projects[k].title;
         var desc = projects[k].desc;
         var date = projects[k].date;
-        projectList.innerHTML += "<a href='#' id='"+keys[i]+"' onclick='viewProject(this)' class='list-group-item'><strong>"+title.slice(0,30)+"</strong>  <span class='badge badge-light'> Due: "+date+"</span><span class='float-right text-left text-secondary'>"+desc.slice(0,100)+"</span></a>";        
+        if (date != "mm/dd/yyyy"){
+          projectList.innerHTML += "<a href='#' id='"+keys[i]+"' onclick='viewProject(this)' class='list-group-item'><strong>"+title.slice(0,30)+"</strong>  <span class='badge badge-light'> Due: "+date+"</span><span class='float-right text-left text-secondary'>"+desc.slice(0,100)+"</span></a>";        
+        }
       }
     } else {
       projectList.innerHTML = "";
