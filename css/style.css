@@ -1,0 +1,113 @@
+body {
+    background: #3B3B3B;
+    color: #fff;
+}
+row {
+    padding:0;
+    margin:0;
+}
+.text {
+    font-size: 20px;
+}
+.auto{
+    margin:auto;
+}
+.btn-xl{
+    width:200px;
+    height:70px;
+    font-size:30px;
+}
+#form {
+    max-width: 400px;
+    height: 300px;
+    border-radius: 10px;
+    background: #F0F0F0;
+    color: #333;
+    margin: 20% auto;
+}
+#content{
+    padding: 20px;
+}
+.mt {
+    margin-top: 50px;
+}
+
+
+#closeBtn {
+    float: right;
+    padding-right: 20px;
+    color: #fff;
+  }
+  
+  #closeBtn:hover {
+    color: #000;
+    cursor: pointer;
+    transition: 0.4s;
+  }
+  
+  #modalContent {
+    padding-top: 10px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    color: #333;
+  }
+  
+  #modal {
+    background: #fff;
+    width: 70%;
+    margin: 20% auto;
+    box-shadow: 5px 5px grey;
+    z-index: 2;
+    animation-name: modalopen;
+    animation-duration: 1s;
+    max-width: 400px;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  
+  #modal-bg {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(51, 51, 51, 0.5);
+    z-index: 1;
+    display: none;
+    left: 0;
+    top: 0;
+  }
+  
+  #m-header h3 {
+    margin: 0;
+  }
+  
+  #m-header {
+    background: coral;
+    color: #fff;
+    padding: 15px;
+    left: 0;
+    top: 0;
+  }
+  
+  #m-footer h5 {
+    margin: 0;
+    text-align: center;
+  }
+  
+  #m-footer {
+    background: coral;
+    color: #fff;
+    padding: 15px;
+    bottom: 0;
+    right: 0;
+    left: 0;
+  }
+  
+  @keyframes modalopen {
+    from {
+      opacity: 0
+    }
+    to {
+      opacity: 1
+    }
+  }
