@@ -118,6 +118,8 @@ function gotData(data) {
         var date = projects[k].date;
         if (date != "mm/dd/yyyy"){
           projectList.innerHTML += "<a href='#' id='"+keys[i]+"' onclick='viewProject(this)' class='list-group-item'><strong>"+title.slice(0,30)+"</strong>  <span class='badge badge-light'> Due: "+date+"</span><span class='float-right text-left text-secondary'>"+desc.slice(0,100)+"</span></a>";        
+        } else{
+          projectList.innerHTML += "<a href='#' id='"+keys[i]+"' onclick='viewProject(this)' class='list-group-item'><strong>"+title.slice(0,30)+"</strong>  <span class='float-right text-left text-secondary'>"+desc.slice(0,100)+"</span></a>";
         }
       }
     } else {
