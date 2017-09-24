@@ -38,7 +38,9 @@ addProjectBtn.addEventListener('click', ()=>{
 // Function to create new project
 function createNewProject(){
     document.getElementById('headerTxt').innerHTML = "Create A Project";
-    document.getElementById('modalTxt').innerHTML = '<input type="text" id="titleTxt" class="form-control form-control-lg float-center mb-2" placeholder="Enter Title"><textarea type="text" id="descTxt" class="form-control form-control-lg float-center mb-2" placeholder="Enter Description (Optional)"></textarea><p class="text-secondary float-right fifty-right">Do you really have a due date?</p><input type="date" class="fifty-left float-left mb-3 form-control" id="dateTxt"><button id="createBtn" class="btn btn-lg btn-warning mb-3 float-left" onclick="createBtnAction()">Create!</button>';
+    document.getElementById('modalTxt').innerHTML = '<input type="text" id="titleTxt" class="form-control form-control-lg float-center mb-2" placeholder="Enter Title"><textarea type="text" id="descTxt" class="form-control form-control-lg float-center mb-2" placeholder="Enter Description (Optional)"></textarea><p class="text-secondary float-right fifty-right"><i class="fa fa-arrow-left"></i> Click X for no due date.</p><input type="date" class="fifty-left float-left mb-3 form-control" id="dateTxt"><button id="createBtn" class="btn btn-lg btn-warning mb-3 float-left" onclick="createBtnAction()">Create!</button>';
+    //Set Datepicker's date to today's date
+    document.getElementById('dateTxt').valueAsDate = new Date();
 
     document.getElementById('modal-bg').style.display = 'block';
 }
