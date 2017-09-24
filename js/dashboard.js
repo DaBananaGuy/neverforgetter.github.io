@@ -53,7 +53,7 @@ today = mm + '/' + dd + '/' + yyyy;
 // Function to create new project
 function createNewProject(){
     document.getElementById('m-header').innerHTML = "<span id='closeBtn'><i class='fa fa-times'></i></span><h3 id='headerTxt'>Create A Project</h3>";
-    document.getElementById('modalTxt').innerHTML = '<input type="text" id="titleTxt" class="form-control form-control-lg float-center mb-2" placeholder="Enter Title"><textarea type="text" id="descTxt" class="form-control form-control-lg float-center mb-2" placeholder="Enter Description"></textarea><input type="date" class="mb-3 form-control" id="dateTxt"><button id="createBtn" class="btn btn-lg btn-warning mb-3" onclick="createBtnAction()">Create!</button>';
+    document.getElementById('modalTxt').innerHTML = '<input type="text" id="titleTxt" class="form-control form-control-lg float-center mb-2" placeholder="Enter Title"><textarea type="text" id="descTxt" class="form-control form-control-lg float-center mb-2" placeholder="Enter Description (Optional)"></textarea><input type="date" class="mb-3 form-control" id="dateTxt"><button id="createBtn" class="btn btn-lg btn-warning mb-3" onclick="createBtnAction()">Create!</button>';
 
     document.getElementById('dateTxt').valueAsDate = new Date();    
 
@@ -83,7 +83,10 @@ function createBtnAction(){
     title = document.getElementById('titleTxt').value;
     desc = document.getElementById('descTxt').value;
     date = document.getElementById('dateTxt').value;
-    if (title != "" && desc != ""&& date != "mm/dd/yyyy" && date != "") {
+    if (desc == "undefined"){
+      desc = "";
+    }
+    if (title != "" && date != "mm/dd/yyyy" && date != "") {
         createProject(title, desc, date);
     }
     
