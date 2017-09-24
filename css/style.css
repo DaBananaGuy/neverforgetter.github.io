@@ -65,6 +65,8 @@ row {
 #closeBtn {
   border: none;
   background: transparent;
+  -webkit-appearance: none;
+  border-radius: 0;
 }
 
 
