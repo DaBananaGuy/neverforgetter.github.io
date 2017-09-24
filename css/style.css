@@ -62,6 +62,10 @@ row {
   float: left;
   margin-left: 0px;
 }
+#closeBtn {
+  border: none;
+  background: transparent;
+}
 
 
 #closeBtn {
