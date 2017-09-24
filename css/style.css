@@ -35,6 +35,14 @@ row {
   width: 50%;
   margin: auto;
 }
+.list-group-item{
+  background-color: #333 !important;
+  border-color: #FFFFFF;
+  color: #fff;
+}
+.list-group-item:hover{
+  color: #979797;
+}
 
 
 #closeBtn {
