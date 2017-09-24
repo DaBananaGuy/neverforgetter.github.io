@@ -133,7 +133,7 @@ function displayModal(title, desc, id){
     var modalTxt = document.getElementById('modalTxt');
 
     headerTxt.innerHTML = title;
-    modalTxt.innerHTML = "<h5 class='text-secondary mb-3'>"+desc+"</h5><button class='btn btn-md btn-primary' id='"+id+"' onclick='complete(this)'>Complete</button>";
+    modalTxt.innerHTML = "<p class='text-secondary mb-3'>"+desc+"</p><button class='btn btn-md btn-primary' id='"+id+"' onclick='complete(this)'>Complete</button>";
 
     document.getElementById('modal-bg').style.display = 'block';
 }
