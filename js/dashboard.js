@@ -119,9 +119,9 @@ function gotData(data) {
         var desc = projects[k].desc;
         var date = projects[k].date;
         if (date != "mm/dd/yyyy" && date != ""){
-          projectList.innerHTML += "<a href='#' id='"+keys[i]+"' onclick='viewProject(this)' class='list-group-item'><strong>"+title.slice(0,30)+"</strong>  <span class='badge badge-light'> Due: "+date+"</span><span class='float-right text-left text-secondary'>"+desc.slice(0,100)+"</span></a>";        
+          projectList.innerHTML += "<a href='#' id='"+keys[i]+"' onclick='viewProject(this)' class='list-group-item list-group-item-project'><strong>"+title.slice(0,30)+"</strong>  <span class='badge badge-light'> Due: "+date+"</span><span class='float-right text-left text-secondary'>"+desc.slice(0,100)+"</span></a>";        
         } else{
-          projectList.innerHTML += "<a href='#' id='"+keys[i]+"' onclick='viewProject(this)' class='list-group-item'><strong>"+title.slice(0,30)+"</strong>  <span class='float-right text-left text-secondary'>"+desc.slice(0,100)+"</span></a>";
+          projectList.innerHTML += "<a href='#' id='"+keys[i]+"' onclick='viewProject(this)' class='list-group-item list-group-item-project'><strong>"+title.slice(0,30)+"</strong>  <span class='float-right text-left text-secondary'>"+desc.slice(0,100)+"</span></a>";
         }
       }
     } else {
