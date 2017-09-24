@@ -139,7 +139,7 @@ function displayModal(title, desc, date, id){
     var modalTxt = document.getElementById('modalTxt');
 
     headerTxt.innerHTML = title;
-    modalTxt.innerHTML = "<p class='text-secondary mb-3'>"+desc+"</p><h4>"+date+"</h4><button class='btn btn-md btn-primary' id='"+id+"' onclick='complete(this)'>Complete</button>";
+    modalTxt.innerHTML = "<p class='text-secondary mb-3'>"+desc+"</p><h4>"+date+"</h4><button class='btn btn-danger btn-md float-left mb-3' id='"+id+"' onclick='edit(this)'>Edit</button><button class='btn btn-md btn-primary float-right' id='"+id+"' onclick='complete(this)'>Complete</button>";
 
     document.getElementById('modal-bg').style.display = 'block';
 }
@@ -150,4 +150,34 @@ function complete(elmnt){
   firebase.database().ref(userId+'/'+id).remove();
   location.reload();
   closeModal();
+}
+
+// edit the project
+function edit(elmnt){
+  var headerTxt = document.getElementById('headerTxt');
+  var modalTxt = document.getElementById('modalTxt');
+
+  var title = projects[elmnt.id].title;
+  var desc = projects[elmnt.id].desc;
+  var date = projects[elmnt.id].date;
+
+  headerTxt.innerHTML = "<h3 id='headerTxt'>Create A Project</h3>";
+  modalTxt.innerHTML = '<input type="text" id="newTitle" class="form-control mb-2" value="'+title+'"><textarea id="newDesc" class="form-control mb-2">'+desc+'</textarea><input type="date" id="newDate" class="form-control mb-3" value="'+date+'"><button class="btn btn-primary btn-lg" id="'+elmnt.id+'" onclick="save(this)">Save</button>';
+}
+
+// save the new version
+function save(elmnt) {
+  var newTitle = document.getElementById('newTitle');
+  var newDesc = document.getElementById('newDesc');
+  var newDate = document.getElementById('newDate');
+  //Make the new version
+  var newProjectRef = projectRef.push();
+  newProjectRef.set({
+      title: newTitle.value,
+      desc: newDesc.value,
+      date: newDate.value
+  });
+  closeModal();
+  // Delete the old version
+  firebase.database().ref(userId+'/'+elmnt.id).remove();
 }
