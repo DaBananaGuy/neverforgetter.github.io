@@ -56,9 +56,11 @@ function signUp(){
 }
 
 function alertError(error){
+    document.getElementById('form').style.height="400px";
     document.getElementById('alert').innerHTML = error;
     document.getElementById('alert').classList.remove('hide');
     setTimeout(()=>{
         document.getElementById('alert').classList.add('hide');
+        document.getElementById('form').style.height="300px";
     }, 5000);
 }
