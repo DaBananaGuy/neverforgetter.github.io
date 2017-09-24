@@ -146,8 +146,11 @@ function displayModal(title, desc, date, id){
     var modalTxt = document.getElementById('modalTxt');
 
     headerTxt.innerHTML = title;
-    modalTxt.innerHTML = "<h4 class='mb-3'>"+desc+"</p><h6 class='mb-3 text-secondary'>Due: "+date+"</h6><button class='btn btn-danger btn-md float-left mb-3' id='"+id+"' onclick='edit(this)'>Edit</button><button class='btn btn-md btn-primary float-right' id='"+id+"' onclick='complete(this)'>Complete</button>";
-
+    if(date != ""){
+      modalTxt.innerHTML = "<h4 class='mb-3'>"+desc+"</p><h6 class='mb-3 text-secondary'>Due: "+date+"</h6><button class='btn btn-danger btn-md float-left mb-3' id='"+id+"' onclick='edit(this)'>Edit</button><button class='btn btn-md btn-primary float-right' id='"+id+"' onclick='complete(this)'>Complete</button>";
+    } else {
+      modalTxt.innerHTML = "<h4 class='mb-3'>"+desc+"</p><button class='btn btn-danger btn-md float-left mb-3' id='"+id+"' onclick='edit(this)'>Edit</button><button class='btn btn-md btn-primary float-right' id='"+id+"' onclick='complete(this)'>Complete</button>";      
+    }
     document.getElementById('modal-bg').style.display = 'block';
 }
 
