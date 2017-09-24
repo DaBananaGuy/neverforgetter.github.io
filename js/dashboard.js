@@ -113,7 +113,7 @@ function gotData(data) {
         var title = projects[k].title;
         var desc = projects[k].desc;
         var date = projects[k].date;
-        projectList.innerHTML += "<a href='#' id='"+keys[i]+"' onclick='viewProject(this)' class='list-group-item'><strong>"+title.slice(0,30)+"</strong>  <span class='badge badge-light'>"+date+"</span><span class='float-right text-left text-secondary'>"+desc.slice(0,100)+"</span></a>";        
+        projectList.innerHTML += "<a href='#' id='"+keys[i]+"' onclick='viewProject(this)' class='list-group-item'><strong>"+title.slice(0,30)+"</strong>  <span class='badge badge-light'> Due: "+date+"</span><span class='float-right text-left text-secondary'>"+desc.slice(0,100)+"</span></a>";        
       }
     } else {
       projectList.innerHTML = "";
