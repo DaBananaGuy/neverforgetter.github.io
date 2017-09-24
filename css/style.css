@@ -31,6 +31,10 @@ row {
 .mt {
     margin-top: 50px;
 }
+.list-group-item{
+  width: 50%;
+  margin: auto;
+}
 
 
 #closeBtn {
