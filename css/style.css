@@ -44,6 +44,9 @@ row {
 .list-group-item:hover{
   color: #979797;
 }
+.badge{
+  font-size: 13px;;
+}
 
 
 #closeBtn {

@@ -113,7 +113,7 @@ function gotData(data) {
         var title = projects[k].title;
         var desc = projects[k].desc;
         var date = projects[k].date;
-        projectList.innerHTML += "<a href='#' id='"+keys[i]+"' onclick='viewProject(this)' class='list-group-item'><strong>"+title.slice(0,30)+"</strong>  <strong class='badge badge-secondary'>"+date+"</strong><span class='float-right text-left text-secondary'>"+desc.slice(0,100)+"</span></a>";        
+        projectList.innerHTML += "<a href='#' id='"+keys[i]+"' onclick='viewProject(this)' class='list-group-item'><strong>"+title.slice(0,30)+"</strong>  <span class='badge badge-light'>"+date+"</span><span class='float-right text-left text-secondary'>"+desc.slice(0,100)+"</span></a>";        
       }
     } else {
       projectList.innerHTML = "";
@@ -139,7 +139,7 @@ function displayModal(title, desc, date, id){
     var modalTxt = document.getElementById('modalTxt');
 
     headerTxt.innerHTML = title;
-    modalTxt.innerHTML = "<p class='text-secondary mb-3'>"+desc+"</p><h4>"+date+"</h4><button class='btn btn-danger btn-md float-left mb-3' id='"+id+"' onclick='edit(this)'>Edit</button><button class='btn btn-md btn-primary float-right' id='"+id+"' onclick='complete(this)'>Complete</button>";
+    modalTxt.innerHTML = "<h4 class='mb-3'>"+desc+"</p><h6 class='mb-3 text-secondary'>Due: "+date+"</h6><button class='btn btn-danger btn-md float-left mb-3' id='"+id+"' onclick='edit(this)'>Edit</button><button class='btn btn-md btn-primary float-right' id='"+id+"' onclick='complete(this)'>Complete</button>";
 
     document.getElementById('modal-bg').style.display = 'block';
 }
