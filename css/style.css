@@ -19,7 +19,7 @@ row {
 }
 #form {
     max-width: 400px;
-    height: 300px;
+    min-height: 320px;
     border-radius: 10px;
     background: #F0F0F0;
     color: #333;
@@ -46,6 +46,9 @@ row {
 }
 .badge{
   font-size: 13px;;
+}
+.hide{
+  display: none;
 }
 
 

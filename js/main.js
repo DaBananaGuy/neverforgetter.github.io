@@ -43,7 +43,8 @@ function login(){
     const auth = firebase.auth();
     //Sign in user
     const promise = auth.signInWithEmailAndPassword(email, pass);
-    promise.catch(e => console.log(e.message));
+    promise.catch(e => alertError(e.message));
+    
 }
 function signUp(){
     const email = emailInput.value;
@@ -51,5 +52,13 @@ function signUp(){
     const auth = firebase.auth();
     //Create user
     const promise = auth.createUserWithEmailAndPassword(email, pass);
-    promise.catch(e => console.log(e.message));
+    promise.catch(e => alertError(e.message));
+}
+
+function alertError(error){
+    document.getElementById('alert').innerHTML = error;
+    document.getElementById('alert').classList.remove('hide');
+    setTimeout(()=>{
+        document.getElementById('alert').classList.add('hide');
+    }, 5000);
 }
