@@ -38,7 +38,7 @@ addProjectBtn.addEventListener('click', ()=>{
 // Function to create new project
 function createNewProject(){
     document.getElementById('m-header').innerHTML = "<span id='closeBtn'><i class='fa fa-times'></i></span><h3 id='headerTxt'>Create A Project</h3>";
-    document.getElementById('modalTxt').innerHTML = '<input type="text" id="titleTxt" class="form-control form-control-lg float-center mb-2" placeholder="Enter Title"><textarea type="text" id="descTxt" class="form-control form-control-lg float-center mb-3" placeholder="Enter Description"></textarea><button id="createBtn" class="btn btn-lg btn-warning mb-3" onclick="createBtnAction()">Create!</button>';
+    document.getElementById('modalTxt').innerHTML = '<input type="text" id="titleTxt" class="form-control form-control-lg float-center mb-2" placeholder="Enter Title"><textarea type="text" id="descTxt" class="form-control form-control-lg float-center mb-2" placeholder="Enter Description"></textarea><input type="date" class="mb-3 form-control" id="dateTxt"><button id="createBtn" class="btn btn-lg btn-warning mb-3" onclick="createBtnAction()">Create!</button>';
 
     document.getElementById('modal-bg').style.display = 'block';
 }
@@ -59,13 +59,15 @@ window.addEventListener('click', (e) => {
 
 var title;
 var desc;
+var date;
 
 // Create Project
 function createBtnAction(){
     title = document.getElementById('titleTxt').value;
     desc = document.getElementById('descTxt').value;
-    if (title != "" && desc != "") {
-        createProject(title, desc);
+    date = document.getElementById('dateTxt').value;
+    if (title != "" && desc != ""&& date != "mm/dd/yyyy" && date != "") {
+        createProject(title, desc, date);
     }
     
 }
@@ -76,14 +78,16 @@ function closeModal() {
 }
 
 // Create Project Function
-function createProject(title, desc){
+function createProject(title, desc, date){
     document.getElementById('titleTxt').value = "";
     document.getElementById('descTxt').value = "";
+    document.getElementById('dateTxt').value = "";
     closeModal();
     var newProjectRef = projectRef.push();
     newProjectRef.set({
         title: title,
-        desc: desc
+        desc: desc,
+        date: date
     });
 }
 
@@ -108,7 +112,8 @@ function gotData(data) {
         k = keys[i];
         var title = projects[k].title;
         var desc = projects[k].desc;
-        projectList.innerHTML += "<a href='#' id='"+keys[i]+"' onclick='viewProject(this)' class='list-group-item'>"+title.slice(0,30)+"<span class='float-right text-right text-secondary'>"+desc.slice(0,45)+"</span></a>";        
+        var date = projects[k].date;
+        projectList.innerHTML += "<a href='#' id='"+keys[i]+"' onclick='viewProject(this)' class='list-group-item'>"+title.slice(0,30)+" - "+date+"<span class='float-right text-right text-secondary'>"+desc.slice(0,45)+"</span></a>";        
       }
     } else {
       projectList.innerHTML = "";
@@ -124,16 +129,17 @@ function gotData(data) {
 function viewProject(elmnt){
     var title = projects[elmnt.id].title;
     var desc = projects[elmnt.id].desc;
-    displayModal(title, desc, elmnt.id);
+    var date = projects[elmnt.id].date;
+    displayModal(title, desc, date, elmnt.id);
 }
 
   // Display modal with new data
-function displayModal(title, desc, id){
+function displayModal(title, desc, date, id){
     var headerTxt = document.getElementById('headerTxt');
     var modalTxt = document.getElementById('modalTxt');
 
     headerTxt.innerHTML = title;
-    modalTxt.innerHTML = "<p class='text-secondary mb-3'>"+desc+"</p><button class='btn btn-md btn-primary' id='"+id+"' onclick='complete(this)'>Complete</button>";
+    modalTxt.innerHTML = "<p class='text-secondary mb-3'>"+desc+"</p><h4>"+date+"</h4><button class='btn btn-md btn-primary' id='"+id+"' onclick='complete(this)'>Complete</button>";
 
     document.getElementById('modal-bg').style.display = 'block';
 }
