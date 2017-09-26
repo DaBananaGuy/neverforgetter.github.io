@@ -68,6 +68,10 @@ function createBtnAction(){
     title = document.getElementById('titleTxt').value;
     desc = document.getElementById('descTxt').value;
     date = document.getElementById('dateTxt').value;
+
+    var newDate = dateConvert(date);
+    date = newDate;
+
     if (desc == "undefined"){
       desc = "";
     }
@@ -182,14 +186,26 @@ function save(elmnt) {
   var newTitle = document.getElementById('newTitle');
   var newDesc = document.getElementById('newDesc');
   var newDate = document.getElementById('newDate');
+
+  var newNewDate = dateConvert(newDate.value);
+  
   //Make the new version
   var newProjectRef = projectRef.push();
   newProjectRef.set({
       title: newTitle.value,
       desc: newDesc.value,
-      date: newDate.value
+      date: newNewDate
   });
   closeModal();
   // Delete the old version
   firebase.database().ref(userId+'/'+elmnt.id).remove();
+}
+
+// Format Date
+
+function dateConvert(date) {
+  var year = date.substr(0,4)
+  var month = date.substr(5,2);
+  var day = date.substr(8,2);
+  return month+'/'+day+'/'+year;
 }
