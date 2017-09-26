@@ -94,6 +94,7 @@ row {
     background: #fff;
     width: 70%;
     margin: 10% auto;
+    max-height: 450px;
     box-shadow: 5px 5px grey;
     z-index: 2;
     animation-name: modalopen;
@@ -101,7 +102,7 @@ row {
     max-width: 400px;
     word-wrap: break-word;
     overflow-x: auto;
-    overflow-y: auto;
+    overflow-y: initial;
   }
   
   #modal-bg {
