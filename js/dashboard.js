@@ -151,20 +151,33 @@ function viewProject(elmnt){
     var desc = projects[elmnt.id].desc;
     var date = projects[elmnt.id].date;
     var products = projects[elmnt.id].products;
-    displayModal(title, desc, date, elmnt.id);
+    displayModal(title, desc, date, products, elmnt.id);
 }
 
   // Display modal with new data
-function displayModal(title, desc, date, id){
+function displayModal(title, desc, date, products, id){
     var headerTxt = document.getElementById('headerTxt');
     var modalTxt = document.getElementById('modalTxt');
 
     headerTxt.innerHTML = title;
-    if(date != "" && date != "//"){
-      modalTxt.innerHTML = "<h4 class='mb-3'>"+desc+"</p><h6 class='mb-3 text-secondary'>Due: "+date+"</h6><button class='btn btn-danger btn-md float-left mb-3' id='"+id+"' onclick='edit(this)'>Edit</button><button class='btn btn-md btn-primary float-right' id='"+id+"' onclick='complete(this)'>Complete</button>";
+    if(products == []){
+      if(date != "" && date != "//"){
+        modalTxt.innerHTML = "<h4 class='mb-3'>"+desc+"</p><h6 class='mb-3 text-secondary'>Due: "+date+"</h6><button class='btn btn-danger btn-md float-left mb-3' id='"+id+"' onclick='edit(this)'>Edit</button><button class='btn btn-md btn-primary float-right' id='"+id+"' onclick='complete(this)'>Complete</button>";
+      } else {
+        modalTxt.innerHTML = "<h4 class='mb-3'>"+desc+"</p><button class='btn btn-danger btn-md float-left mb-3' id='"+id+"' onclick='edit(this)'>Edit</button><button class='btn btn-md btn-primary float-right' id='"+id+"' onclick='complete(this)'>Complete</button>";      
+      }
     } else {
-      modalTxt.innerHTML = "<h4 class='mb-3'>"+desc+"</p><button class='btn btn-danger btn-md float-left mb-3' id='"+id+"' onclick='edit(this)'>Edit</button><button class='btn btn-md btn-primary float-right' id='"+id+"' onclick='complete(this)'>Complete</button>";      
+      if(date != "" && date != "//"){
+        modalTxt.innerHTML = "<h4 class='mb-3'>"+desc+"</p><h6 class='mb-3 text-secondary'>Due: "+date+"</h6><h4>To Buy:</h4><ul class='list-group mb-3' id='modalProducts'></ul><button class='btn btn-danger btn-md float-left mb-3' id='"+id+"' onclick='edit(this)'>Edit</button><button class='btn btn-md btn-primary float-right' id='"+id+"' onclick='complete(this)'>Complete</button>";
+      } else {
+        modalTxt.innerHTML = "<h4 class='mb-3'>"+desc+"</p><h4>To Buy:</h4><ul class='list-group mb-3' id='modalProducts'></ul><button class='btn btn-danger btn-md float-left mb-3' id='"+id+"' onclick='edit(this)'>Edit</button><button class='btn btn-md btn-primary float-right' id='"+id+"' onclick='complete(this)'>Complete</button>";      
+      }
     }
+
+    for(var i=0;i<products.length;i++){
+      document.getElementById('modalProducts').innerHTML +="<li class='list-group-item'>"+products[i]+"</li>";
+    }
+
     document.getElementById('modal-bg').style.display = 'block';
 }
 
