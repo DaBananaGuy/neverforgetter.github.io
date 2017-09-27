@@ -65,12 +65,14 @@ window.addEventListener('click', (e) => {
 var title;
 var desc;
 var date;
+var products;
 
 // Create Project
 function createBtnAction(){
     title = document.getElementById('titleTxt').value;
     desc = document.getElementById('descTxt').value;
     date = document.getElementById('dateTxt').value;
+    products = productArray;
 
     var newDate = dateConvert(date);
     date = newDate;
@@ -79,7 +81,7 @@ function createBtnAction(){
       desc = "";
     }
     if (title != "") {
-        createProject(title, desc, date);
+        createProject(title, desc, date, products);
     }
     
 }
@@ -90,7 +92,7 @@ function closeModal() {
 }
 
 // Create Project Function
-function createProject(title, desc, date){
+function createProject(title, desc, date, products){
     document.getElementById('titleTxt').value = "";
     document.getElementById('descTxt').value = "";
     document.getElementById('dateTxt').value = "";
@@ -99,7 +101,8 @@ function createProject(title, desc, date){
     newProjectRef.set({
         title: title,
         desc: desc,
-        date: date
+        date: date,
+        products: products
     });
 }
 
@@ -125,8 +128,9 @@ function gotData(data) {
         var title = projects[k].title;
         var desc = projects[k].desc;
         var date = projects[k].date;
+        var products = projects[k].products;
         if (date != "mm/dd/yyyy" && date != ""&& date != "//"){
-          projectList.innerHTML += "<a href='#' id='"+keys[i]+"' onclick='viewProject(this)' class='list-group-item list-group-item-project'><strong>"+title.slice(0,12)+"</strong>  <span class='ml-2 badge badge-light'> Due: "+date+"</span><br/><span class='float-right text-left text-secondary float-left'>"+desc.slice(0,100)+"</span></a>";        
+          projectList.innerHTML += "<a href='#' id='"+keys[i]+"' onclick='viewProject(this)' class='list-group-item list-group-item-project'><strong>"+title.slice(0,15)+"</strong>  <span class='ml-2 badge badge-light'> Due: "+date+"</span><br/><span class='float-right text-left text-secondary float-left'>"+desc.slice(0,100)+"</span></a>";        
         } else{
           projectList.innerHTML += "<a href='#' id='"+keys[i]+"' onclick='viewProject(this)' class='list-group-item list-group-item-project'><strong>"+title.slice(0,24)+"</strong>  <br/><span class='float-left text-left text-secondary'>"+desc.slice(0,100)+"</span></a>";
         }
@@ -146,6 +150,7 @@ function viewProject(elmnt){
     var title = projects[elmnt.id].title;
     var desc = projects[elmnt.id].desc;
     var date = projects[elmnt.id].date;
+    var products = projects[elmnt.id].products;
     displayModal(title, desc, date, elmnt.id);
 }
 
@@ -181,7 +186,7 @@ function edit(elmnt){
   var date = projects[elmnt.id].date;
 
   headerTxt.innerHTML = "<h3 id='headerTxt'>Create A Project</h3>";
-  modalTxt.innerHTML = '<input type="text" id="newTitle" class="form-control mb-2" value="'+title+'"><textarea id="newDesc" class="form-control mb-2">'+desc+'</textarea><input type="date" id="newDate" class="form-control mb-3" value="'+date+'"><button class="btn btn-primary btn-lg" id="'+elmnt.id+'" onclick="save(this)">Save</button>';
+  modalTxt.innerHTML = '<input type="text" id="newTitle" class="form-control mb-2" value="'+title+'"><textarea id="newDesc" class="form-control mb-2">'+desc+'</textarea><input type="date" id="newDate" class="form-control mb-3" value="'+unConvertDate(date)+'"><button class="btn btn-primary btn-lg" id="'+elmnt.id+'" onclick="save(this)">Save</button>';
 }
 
 // save the new version
@@ -211,6 +216,14 @@ function dateConvert(date) {
   var month = date.substr(5,2);
   var day = date.substr(8,2);
   return month+'/'+day+'/'+year;
+}
+
+// Un format Date
+function unConvertDate(date){
+  var year = date.substr(6,4);
+  var month = date.substr(0,2);
+  var day = date.substr(3,2);
+  return year+'-'+month+'-'+day;
 }
 
 function newProduct() {
