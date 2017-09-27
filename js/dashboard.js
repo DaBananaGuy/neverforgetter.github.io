@@ -122,7 +122,7 @@ function gotData(data) {
         var title = projects[k].title;
         var desc = projects[k].desc;
         var date = projects[k].date;
-        if (date != "mm/dd/yyyy" && date != ""){
+        if (date != "mm/dd/yyyy" && date != ""&& date != "//"){
           projectList.innerHTML += "<a href='#' id='"+keys[i]+"' onclick='viewProject(this)' class='list-group-item list-group-item-project'><strong>"+title.slice(0,12)+"</strong>  <span class='ml-2 badge badge-light'> Due: "+date+"</span><br/><span class='float-right text-left text-secondary float-left'>"+desc.slice(0,100)+"</span></a>";        
         } else{
           projectList.innerHTML += "<a href='#' id='"+keys[i]+"' onclick='viewProject(this)' class='list-group-item list-group-item-project'><strong>"+title.slice(0,24)+"</strong>  <br/><span class='float-left text-left text-secondary'>"+desc.slice(0,100)+"</span></a>";
@@ -152,7 +152,7 @@ function displayModal(title, desc, date, id){
     var modalTxt = document.getElementById('modalTxt');
 
     headerTxt.innerHTML = title;
-    if(date != ""){
+    if(date != "" && date != "//"){
       modalTxt.innerHTML = "<h4 class='mb-3'>"+desc+"</p><h6 class='mb-3 text-secondary'>Due: "+date+"</h6><button class='btn btn-danger btn-md float-left mb-3' id='"+id+"' onclick='edit(this)'>Edit</button><button class='btn btn-md btn-primary float-right' id='"+id+"' onclick='complete(this)'>Complete</button>";
     } else {
       modalTxt.innerHTML = "<h4 class='mb-3'>"+desc+"</p><button class='btn btn-danger btn-md float-left mb-3' id='"+id+"' onclick='edit(this)'>Edit</button><button class='btn btn-md btn-primary float-right' id='"+id+"' onclick='complete(this)'>Complete</button>";      
@@ -187,9 +187,7 @@ function save(elmnt) {
   var newDesc = document.getElementById('newDesc');
   var newDate = document.getElementById('newDate');
 
-  if(newDate != ""&&newDate != "mm/dd/yyyy"){
-    var newNewDate = dateConvert(newDate.value);
-  }
+  var newNewDate = dateConvert(newDate.value);
   
   //Make the new version
   var newProjectRef = projectRef.push();
