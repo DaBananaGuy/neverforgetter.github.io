@@ -172,7 +172,7 @@ function displayModal(title, desc, date, products, id){
     // Display Products
     if(products.length >=1){
       for(var i=0;i<products.length;i++){
-        document.getElementById('modalProducts').innerHTML +="<li class='list-group-item'>"+products[i]+"</li>";
+        document.getElementById('modalProducts').innerHTML +="<li class='list-group-item "+id+"'>"+products[i]+"<button id='"+id+"' class='float-right btn-nostyle' onclick='deleteProduct(this, "+i+")'><i class='fa fa-times'></i></button></li>";
       } 
     }
 }
@@ -235,10 +235,32 @@ function unConvertDate(date){
   return year+'-'+month+'-'+day;
 }
 
+// Add New Product
 function newProduct() {
   var newProductTxt = document.getElementById('newProductTxt');
   var productList = document.getElementById('productList');
   productArray.push(newProductTxt.value);
   productList.innerHTML += '<li class="list-group-item">'+newProductTxt.value+'</li>';
   newProductTxt.value = "";
+}
+
+// delete Product
+function deleteProduct(elmnt, i){
+  elmnt.parentElement.style.display="none";
+
+  var project = projects[elmnt.id];
+  var title = project.title;
+  var desc = project.desc;
+  var date = project.date;
+  var products = project.products;
+  
+  products.splice(i,1);
+  var newRef = projectRef.push();
+  newRef.set({
+      title: title,
+      desc: desc,
+      date: date,
+      products: products
+  }); 
+  firebase.database().ref(userId+'/'+elmnt.id).remove();
 }
