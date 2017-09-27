@@ -187,7 +187,9 @@ function save(elmnt) {
   var newDesc = document.getElementById('newDesc');
   var newDate = document.getElementById('newDate');
 
-  var newNewDate = dateConvert(newDate.value);
+  if(newDate != ""&&newDate != "mm/dd/yyyy"){
+    var newNewDate = dateConvert(newDate.value);
+  }
   
   //Make the new version
   var newProjectRef = projectRef.push();
