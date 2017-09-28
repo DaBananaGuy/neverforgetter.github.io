@@ -185,10 +185,14 @@ function complete(elmnt){
   closeModal();
 }
 
+var editedProducts = [];
+
 // edit the project
 function edit(elmnt){
   var headerTxt = document.getElementById('headerTxt');
   var modalTxt = document.getElementById('modalTxt');
+
+  editedProducts = [];
 
   var title = projects[elmnt.id].title;
   var desc = projects[elmnt.id].desc;
@@ -196,11 +200,11 @@ function edit(elmnt){
   var products = projects[elmnt.id].products;
 
   headerTxt.innerHTML = "<h3 id='headerTxt'>Create A Project</h3>";
-  modalTxt.innerHTML = '<input type="text" id="newTitle" class="form-control mb-2" value="'+title+'"><textarea id="newDesc" class="form-control mb-2">'+desc+'</textarea><input type="date" id="newDate" class="form-control mb-3" value="'+unConvertDate(date)+'"><ul class="list-group mb-3" id="editModalProducts"></ul><button class="btn btn-primary btn-lg" id="'+elmnt.id+'" onclick="save(this)">Save</button>';
+  modalTxt.innerHTML = '<input type="text" id="newTitle" class="form-control mb-2" value="'+title+'"><textarea id="newDesc" class="form-control mb-2">'+desc+'</textarea><input type="date" id="newDate" class="form-control mb-3" value="'+unConvertDate(date)+'"><input type="text" id="newEditProductTxt" class="form-control fifty-left" placeholder="Enter Product"><button class="half-right btn btn-md btn-primary" id="newProductBtn" onclick="newEditProduct()">Add</button><ul class="list-group mt-2 mb-3" id="editModalProducts"></ul><button class="btn btn-primary btn-lg" id="'+elmnt.id+'" onclick="save(this)">Save</button>';
 
   for(var i=0;i<products.length;i++){
-    alert(document.getElementById('editModalProducts').innerHTML);
-    document.getElementById('editModalProducts').innerHTML +="<li class='list-group-item'>"+products[i]+"</li>";
+    editedProducts.push(products[i]);
+    document.getElementById('editModalProducts').innerHTML +="<li class='list-group-item'><input class='form-control' id='"+i+"' value='"+products[i]+"'></li>";
   } 
 }
 
@@ -209,6 +213,10 @@ function save(elmnt) {
   var newTitle = document.getElementById('newTitle');
   var newDesc = document.getElementById('newDesc');
   var newDate = document.getElementById('newDate');
+  var newProducts = [];
+  for (var i=0; i<editedProducts.length;i++){
+    newProducts.push(document.getElementById(i).value);
+  }
 
   var newNewDate = dateConvert(newDate.value);
   
@@ -217,7 +225,8 @@ function save(elmnt) {
   newProjectRef.set({
       title: newTitle.value,
       desc: newDesc.value,
-      date: newNewDate
+      date: newNewDate,
+      products: newProducts
   });
   closeModal();
   // Delete the old version
@@ -248,6 +257,16 @@ function newProduct() {
   productArray.push(newProductTxt.value);
   productList.innerHTML += '<li class="list-group-item">'+newProductTxt.value+'</li>';
   newProductTxt.value = "";
+}
+
+// Add New Product from edit
+function newEditProduct() {
+  var newEditProductTxt = document.getElementById('newEditProductTxt');
+  var editModalProducts = document.getElementById('editModalProducts');
+  editedProducts.push(newEditProductTxt.value);
+  var i = editedProducts.length - 1;
+  editModalProducts.innerHTML += "<li class='list-group-item'><input type='text' id='"+i+"' class='form-control' value='"+editedProducts[i]+"'></li>";
+  newEditProductTxt.value = "";
 }
 
 // delete Product
