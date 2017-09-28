@@ -9,6 +9,10 @@ messagingSenderId: "1056019897192"
 };
 firebase.initializeApp(config);
 
+$(document).ready(function(){
+  $('[data-toggle="popover"]').popover(); 
+});
+
 //firebase variables
 var projectRef;
 var userId;

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <link rel="shortcut icon" href="img/favicon.png" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
@@ -40,14 +41,14 @@
         </div>
       </div>
     </div>
-
+    
     <button id="addProjectBtn" class="btn btn-md btn-success mt-2 ml-2"><i class="fa fa-plus-circle" aria-hidden="true"></i> Create New Project</button>
     <button id="signOutBtn" onclick="firebase.auth().signOut();" class="btn btn-sm btn-danger float-right mt-2 mr-2">Sign Out <i class="fa fa-times-circle" onclick="alert()"></i></button>
     
     <h1 class="display-4 mt-3 mb-3 text-center">My Projects:</h1>
     <div id="projectList" class="list-group mt ml-2 mr-2">
     </div>
-   
+    
     <script src="https://use.fontawesome.com/e5f4944e79.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.4.0/firebase.js"></script>
     <!-- Bootstrap Stuff -->
