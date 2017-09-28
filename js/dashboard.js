@@ -41,7 +41,7 @@ var productArray=[];
 function createNewProject(){
     productArray=[];
     document.getElementById('headerTxt').innerHTML = "Create A Project";
-    document.getElementById('modalTxt').innerHTML = '<input type="text" id="titleTxt" class="form-control form-control-lg float-center mb-2" placeholder="Enter Title"><textarea type="text" id="descTxt" class="form-control form-control-lg float-center mb-2" placeholder="Enter Description (Optional)"></textarea><p class="text-secondary float-right fifty-right"><i class="fa fa-arrow-left"></i> Click X for no due date.</p><input type="date" class="fifty-left float-left mb-3 form-control" id="dateTxt"><input type="text" id="newProductTxt" class="form-control fifty-left" placeholder="Enter Product To Get"><button class="half-right mb-2 btn btn-md btn-primary" id="newProductBtn" onclick="newProduct()">Add</button><ul class="list-group mt-2 mb-3" id="productList"></ul><button id="createBtn" class="btn btn-lg btn-warning mb-3 float-left mt-3" onclick="createBtnAction()">Create!</button>';
+    document.getElementById('modalTxt').innerHTML = '<input type="text" id="titleTxt" class="form-control form-control-lg float-center mb-2" placeholder="Enter Title"><textarea type="text" id="descTxt" class="form-control form-control-lg float-center mb-2" placeholder="Enter Description (Optional)"></textarea><p class="text-secondary float-right fifty-right"><i class="fa fa-arrow-left"></i> Click X for no due date.</p><input type="date" class="fifty-left float-left mb-3 form-control" id="dateTxt"><input type="text" id="newProductTxt" class="form-control fifty-left" placeholder="Enter Product"><button class="half-right mb-2 btn btn-md btn-primary" id="newProductBtn" onclick="newProduct()">Add</button><ul class="list-group mt-2 mb-3" id="productList"></ul><button id="createBtn" class="btn btn-lg btn-warning mb-3 float-left mt-3" onclick="createBtnAction()">Create!</button>';
     //Set Datepicker's date to today's date
     document.getElementById('dateTxt').valueAsDate = new Date();
 
@@ -193,9 +193,15 @@ function edit(elmnt){
   var title = projects[elmnt.id].title;
   var desc = projects[elmnt.id].desc;
   var date = projects[elmnt.id].date;
+  var products = projects[elmnt.id].products;
 
   headerTxt.innerHTML = "<h3 id='headerTxt'>Create A Project</h3>";
-  modalTxt.innerHTML = '<input type="text" id="newTitle" class="form-control mb-2" value="'+title+'"><textarea id="newDesc" class="form-control mb-2">'+desc+'</textarea><input type="date" id="newDate" class="form-control mb-3" value="'+unConvertDate(date)+'"><button class="btn btn-primary btn-lg" id="'+elmnt.id+'" onclick="save(this)">Save</button>';
+  modalTxt.innerHTML = '<input type="text" id="newTitle" class="form-control mb-2" value="'+title+'"><textarea id="newDesc" class="form-control mb-2">'+desc+'</textarea><input type="date" id="newDate" class="form-control mb-3" value="'+unConvertDate(date)+'"><ul class="list-group mb-3" id="editModalProducts"></ul><button class="btn btn-primary btn-lg" id="'+elmnt.id+'" onclick="save(this)">Save</button>';
+
+  for(var i=0;i<products.length;i++){
+    alert(document.getElementById('editModalProducts').innerHTML);
+    document.getElementById('editModalProducts').innerHTML +="<li class='list-group-item'>"+products[i]+"</li>";
+  } 
 }
 
 // save the new version
