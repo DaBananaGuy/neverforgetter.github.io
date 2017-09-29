@@ -9,13 +9,12 @@ messagingSenderId: "1056019897192"
 };
 firebase.initializeApp(config);
 
-$(document).ready(function(){
-  $('[data-toggle="popover"]').popover(); 
-});
-
 //firebase variables
 var projectRef;
 var userId;
+
+// Keyword Array
+var searchedKeywords = [];
 
 //Reference HTML Elements
 const addProjectBtn = document.getElementById('addProjectBtn');
@@ -45,7 +44,7 @@ var productArray=[];
 function createNewProject(){
     productArray=[];
     document.getElementById('headerTxt').innerHTML = "Create A Project";
-    document.getElementById('modalTxt').innerHTML = '<input type="text" id="titleTxt" class="form-control form-control-lg float-center mb-2" placeholder="Enter Title"><textarea type="text" id="descTxt" class="form-control form-control-lg float-center mb-2" placeholder="Enter Description (Optional)"></textarea><p class="text-secondary float-right fifty-right"><i class="fa fa-arrow-left"></i> Click X for no due date.</p><input type="date" class="fifty-left float-left mb-3 form-control" id="dateTxt"><input type="text" id="newProductTxt" class="form-control fifty-left" placeholder="Enter Product"><button class="half-right mb-2 btn btn-md btn-primary" id="newProductBtn" onclick="newProduct()">Add</button><ul class="list-group mt-2 mb-3" id="productList"></ul><button id="createBtn" class="btn btn-lg btn-warning mb-3 float-left mt-3" onclick="createBtnAction()">Create!</button>';
+    document.getElementById('modalTxt').innerHTML = '<input type="text" id="titleTxt" class="form-control form-control-lg float-center mb-2" placeholder="Enter Title"><textarea type="text" id="descTxt" class="form-control form-control-lg float-center mb-2" placeholder="Enter Description (Optional)"></textarea><p class="text-secondary float-right fifty-right"><i class="fa fa-arrow-left"></i> Click X for no due date.</p><input type="date" class="fifty-left float-left mb-3 form-control" id="dateTxt"><input type="text" id="newProductTxt" class="form-control fifty-left" placeholder="Enter Item"><button class="half-right mb-2 btn btn-md btn-primary" id="newProductBtn" onclick="newProduct()">Add</button><ul class="list-group mt-2 mb-3" id="productList"></ul><button id="createBtn" class="btn btn-lg btn-warning mb-3 float-left mt-3" onclick="createBtnAction()">Create!</button>';
     //Set Datepicker's date to today's date
     document.getElementById('dateTxt').valueAsDate = new Date();
 
@@ -176,7 +175,8 @@ function displayModal(title, desc, date, products, id){
     // Display Products
     if(products.length >=1){
       for(var i=0;i<products.length;i++){
-        document.getElementById('modalProducts').innerHTML +="<li class='list-group-item "+id+"'>"+products[i]+"<button id='"+id+"' class='float-right btn-nostyle' onclick='deleteProduct(this, "+i+")'><i class='fa fa-times'></i></button></li>";
+        var ddId = products[i]+'DD';
+        document.getElementById('modalProducts').innerHTML +="<li class='list-group-item "+id+"'>"+products[i]+"<button id='"+products[i]+"' type='button' class='btn-nostyle' onclick='search(this)'><i class='fa fa-search'></i></button><button id='"+id+"' class='float-right btn-nostyle' onclick='deleteProduct(this, "+i+")'><i class='fa fa-times'></i></button></li><div id='"+ddId+"'></div>";
       } 
     }
 }
@@ -204,7 +204,7 @@ function edit(elmnt){
   var products = projects[elmnt.id].products;
 
   headerTxt.innerHTML = "<h3 id='headerTxt'>Create A Project</h3>";
-  modalTxt.innerHTML = '<input type="text" id="newTitle" class="form-control mb-2" value="'+title+'"><textarea id="newDesc" class="form-control mb-2">'+desc+'</textarea><input type="date" id="newDate" class="form-control mb-3" value="'+unConvertDate(date)+'"><input type="text" id="newEditProductTxt" class="form-control fifty-left" placeholder="Enter Product"><button class="half-right btn btn-md btn-primary" id="newProductBtn" onclick="newEditProduct()">Add</button><ul class="list-group mt-2 mb-3" id="editModalProducts"></ul><button class="btn btn-primary btn-lg" id="'+elmnt.id+'" onclick="save(this)">Save</button>';
+  modalTxt.innerHTML = '<input type="text" id="newTitle" class="form-control mb-2" value="'+title+'"><textarea id="newDesc" class="form-control mb-2">'+desc+'</textarea><input type="date" id="newDate" class="form-control mb-3" value="'+unConvertDate(date)+'"><input type="text" id="newEditProductTxt" class="form-control fifty-left" placeholder="Enter Item"><button class="half-right btn btn-md btn-primary" id="newProductBtn" onclick="newEditProduct()">Add</button><ul class="list-group mt-2 mb-3" id="editModalProducts"></ul><button class="btn btn-primary btn-lg" id="'+elmnt.id+'" onclick="save(this)">Save</button>';
 
   for(var i=0;i<products.length;i++){
     editedProducts.push(products[i]);
@@ -292,4 +292,36 @@ function deleteProduct(elmnt, i){
       products: products
   }); 
   firebase.database().ref(userId+'/'+elmnt.id).remove();
+}
+
+// Show a search dropdown
+function search(elmnt){
+  var keyword = elmnt.id;
+  var ddId = document.getElementById(keyword+'DD');
+  var display;
+  
+  if (searchedKeywords.length == 0){
+    searchedKeywords.push([keyword, 'false']);
+  } else {
+    for (var i=0; i<searchedKeywords.length; i++){
+      if (searchedKeywords[i][0] == keyword){
+        if(searchedKeywords[i][1] == 'false'){
+          searchedKeywords[i][1]='true';
+          display = searchedKeywords[i][1];
+          break;
+        } else {
+          searchedKeywords[i][1]='false';
+          display=searchedKeywords[i][1];
+          break;
+        }
+      } else {
+        searchedKeywords.push([keyword, 'false']);
+      }
+    }
+  }
+  if (display=='true'){
+    ddId.innerHTML = "<button class='btn btn-default mt-2 mb-2' ><i class='fa fa-amazon'></i> Search Amazon</button>"; 
+  } if (display=='false'){
+    ddId.innerHTML = "";     
+  }
 }
