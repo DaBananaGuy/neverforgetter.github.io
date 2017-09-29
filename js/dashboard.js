@@ -302,23 +302,23 @@ function search(elmnt){
   
   if (searchedKeywords.length == 0){
     searchedKeywords.push([keyword, 'false']);
-  } else {
-    for (var i=0; i<searchedKeywords.length; i++){
-      if (searchedKeywords[i][0] == keyword){
-        if(searchedKeywords[i][1] == 'false'){
-          searchedKeywords[i][1]='true';
-          display = searchedKeywords[i][1];
-          break;
-        } else {
-          searchedKeywords[i][1]='false';
-          display=searchedKeywords[i][1];
-          break;
-        }
+  }
+  for (var i=0; i<searchedKeywords.length; i++){
+    if (searchedKeywords[i][0] == keyword){
+      if(searchedKeywords[i][1] == 'false'){
+        searchedKeywords[i][1]='true';
+        display = searchedKeywords[i][1];
+        break;
       } else {
-        searchedKeywords.push([keyword, 'false']);
+        searchedKeywords[i][1]='false';
+        display=searchedKeywords[i][1];
+        break;
       }
+    } else {
+      searchedKeywords.push([keyword, 'false']);
     }
   }
+  
   if (display=='true'){
     ddId.innerHTML = "<button class='btn btn-default mt-2 mb-2' ><i class='fa fa-amazon'></i> Search Amazon</button>"; 
   } if (display=='false'){
