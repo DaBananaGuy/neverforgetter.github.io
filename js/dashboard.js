@@ -320,8 +320,19 @@ function search(elmnt){
   }
   
   if (display=='true'){
-    ddId.innerHTML = "<button class='btn btn-default mt-2 mb-2' ><i class='fa fa-amazon'></i> Search Amazon</button>"; 
+    ddId.innerHTML = "<button id='"+keyword+"' class='btn btn-default mt-2 mb-2' onclick='searchAmzn(this)'><i class='fa fa-amazon'></i> Search Amazon</button><br/><button id='"+keyword+"' class='btn btn-danger mb-2' onclick='searchGoogle(this)'><i class='fa fa-google'></i> Search Google</button>"; 
   } if (display=='false'){
     ddId.innerHTML = "";     
   }
 }
+
+// Search Amazon
+function searchAmzn(elmnt){
+  window.open("https://www.amazon.com/s/ref=nb_sb_noss_2/146-9958639-8760927?url=search-alias%3Daps&field-keywords="+elmnt.id);
+}
+
+//Search Google
+function searchGoogle(elmnt){
+  window.open("https://www.google.com/search?q="+elmnt.id);
+}
+//https://www.google.com/search?q=
