@@ -320,7 +320,7 @@ function search(elmnt){
   }
   
   if (display=='true'){
-    ddId.innerHTML = "<button id='"+keyword+"' class='btn btn-default mt-2 mb-2' onclick='searchAmzn(this)'><i class='fa fa-amazon'></i> Search Amazon</button><br/><button id='"+keyword+"' class='btn btn-danger mb-2' onclick='searchGoogle(this)'><i class='fa fa-google'></i> Search Google</button>"; 
+    ddId.innerHTML = "<button id='"+keyword+"' class='btn btn-default mt-2 mb-2' onclick='searchAmzn(this)'><i class='fa fa-amazon'></i> Search Amazon</button><br/><button id='"+keyword+"' class='btn btn-danger mb-2' onclick='searchGoogle(this)'><i class='fa fa-google'></i> Search Google</button><br/><button class='btn btn-link' id='"+keyword+"' onclick='searchMore(this)'><i class='fa fa-plus' onclick></i> More</button>"; 
   } if (display=='false'){
     ddId.innerHTML = "";     
   }
@@ -335,4 +335,10 @@ function searchAmzn(elmnt){
 function searchGoogle(elmnt){
   window.open("https://www.google.com/search?q="+elmnt.id);
 }
-//https://www.google.com/search?q=
+
+var currentKeyword;
+
+// Search More
+function searchMore(elmnt){
+  currentKeyword = elmnt.id;
+}
