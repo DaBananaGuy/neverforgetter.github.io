@@ -320,7 +320,10 @@ function search(elmnt){
   }
   
   if (display=='true'){
-    ddId.innerHTML = "<button id='"+keyword+"' class='btn btn-default mt-2 mb-2' onclick='searchAmzn(this)'><i class='fa fa-amazon'></i> Search Amazon</button><br/><button id='"+keyword+"' class='btn btn-danger mb-2' onclick='searchGoogle(this)'><i class='fa fa-google'></i> Search Google</button><br/><button class='btn btn-link' id='"+keyword+"' onclick='searchMore(this)'><i class='fa fa-plus' onclick></i> More</button>"; 
+    ddId.style.display = "grid";
+    ddId.style.gridTemplateColumns = "1fr 1fr";
+    ddId.style.gridGap="1em";
+    ddId.innerHTML = "<button id='"+keyword+"' class='btn btn-default mt-2' onclick='searchAmzn(this)'><i class='fa fa-amazon'></i> Amazon</button><button id='"+keyword+"' class='btn btn-success mt-2' onclick='searchGoogle(this)'><i class='fa fa-google'></i> Google</button><button class='btn btn-link more-btn' id='"+keyword+"' onclick='searchMore(this)'><i class='fa fa-plus'></i> More</button>"; 
   } if (display=='false'){
     ddId.innerHTML = "";     
   }
@@ -336,15 +339,33 @@ function searchGoogle(elmnt){
   window.open("https://www.google.com/search?q="+elmnt.id);
 }
 
+// Search Michaels
+function searchMichaels(elmnt){
+  window.open("http://www.michaels.com/search?q="+elmnt.id);
+}
+
+// Search Walmart
+function searchWalmart(elmnt){
+  window.open("https://www.walmart.com/search/?query="+elmnt.id);
+}
+
+// Search Etsy
+function searchEtsy(elmnt){
+  window.open("https://www.etsy.com/search?q="+elmnt.id);
+}
+
+// Search Youtube
+function searchYoutube(elmnt){
+  window.open("https://www.youtube.com/results?search_query="+elmnt.id);
+}
+
 var currentKeyword;
 
 // Search More
 function searchMore(elmnt){
   currentKeyword = elmnt.id;
-  location.href = "more.html";
-  updateMore();
-}
-
-function updateMore(){
   
+  elmnt.parentElement.innerHTML += "<button id='"+currentKeyword+"' class='btn btn-danger' onclick='searchYoutube(this)'><i class='fa fa-youtube-play'></i>  YouTube</button><button id='"+currentKeyword+"' class='btn btn-coral' onclick='searchEtsy(this)'><i class='fa fa-etsy'></i>  Etsy</button><button id='"+currentKeyword+"' class='btn btn-warning' onclick='searchWalmart(this)'> Walmart</button><button id='"+currentKeyword+"' class='btn btn-info' onclick='searchMichaels(this)'> Michaels</button>";
+  document.getElementsByClassName('more-btn')[0].remove();
+  //elmnt.parentNode.removeChild(elmnt);
 }

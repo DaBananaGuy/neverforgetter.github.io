@@ -87,6 +87,14 @@ row {
   margin-top: 60px;
 }
 
+.btn-coral{
+  background: coral;
+  color: #fff;
+}
+.btn-coral:hover{
+  background: #FF652D;
+}
+
 
 #closeBtn {
     float: right;
