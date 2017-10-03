@@ -341,4 +341,10 @@ var currentKeyword;
 // Search More
 function searchMore(elmnt){
   currentKeyword = elmnt.id;
+  location.href = "more.html";
+  updateMore();
+}
+
+function updateMore(){
+  
 }
