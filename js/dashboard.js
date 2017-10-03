@@ -165,9 +165,9 @@ function displayModal(title, desc, date, products, id){
     headerTxt.innerHTML = title;
 
     if(date != "" && date != "//"){
-      modalTxt.innerHTML = "<h4 class='mb-3'>"+desc+"</p><h6 class='mb-3 text-secondary'>Due: "+date+"</h6><ul class='list-group mb-3' id='modalProducts'></ul><button class='btn btn-primary btn-md float-left mb-3' id='"+id+"' onclick='edit(this)'>Edit</button><button class='btn btn-md btn-danger float-right' id='"+id+"' onclick='complete(this)'><i class='fa fa-trash'></i> Complete</button>";
+      modalTxt.innerHTML = "<h4 class='mb-3'>"+desc+"</h4><h6 class='mb-3 text-secondary'>Due: "+date+"</h6><ul class='list-group mb-3' id='modalProducts'></ul><button class='btn btn-primary btn-md float-left mb-3' id='"+id+"' onclick='edit(this)'>Edit</button><button class='btn btn-md btn-danger float-right' id='"+id+"' onclick='complete(this)'><i class='fa fa-trash'></i> Complete</button>";
     } else {
-      modalTxt.innerHTML = "<h4 class='mb-3'>"+desc+"</p><ul class='list-group mb-3' id='modalProducts'></ul><button class='btn btn-primary btn-md float-left mb-3' id='"+id+"' onclick='edit(this)'>Edit</button><button class='btn btn-md btn-danger float-right' id='"+id+"' onclick='complete(this)'><i class='fa fa-trash'></i> Complete</button>";      
+      modalTxt.innerHTML = "<h4 class='mb-3'>"+desc+"</h4><ul class='list-group mb-3' id='modalProducts'></ul><button class='btn btn-primary btn-md float-left mb-3' id='"+id+"' onclick='edit(this)'>Edit</button><button class='btn btn-md btn-danger float-right' id='"+id+"' onclick='complete(this)'><i class='fa fa-trash'></i> Complete</button>";      
     }
     
     document.getElementById('modal-bg').style.display = 'block';
