@@ -145,8 +145,12 @@ function gotData(data) {
       var descs = document.getElementsByClassName('desc');
 
       for (var i=0; i<descs.length; i++){
-        descs[i].classList.remove('float-right');
-        descs[i].classList.add('float-left');
+        if(descs[i].innerHTML.length < 25){
+          continue;
+        }else {
+          descs[i].classList.remove('float-right');
+          descs[i].classList.add('float-left');
+        }
       }
     }
   }
