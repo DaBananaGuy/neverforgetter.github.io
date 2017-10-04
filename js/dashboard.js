@@ -141,7 +141,8 @@ function gotData(data) {
     } else {
       projectList.innerHTML = "";
     }
-    if (screen.width/2 <= 1040){
+    alert(window.innerWidth);
+    if (window.innerWidth <= 1040){
       var descs = document.getElementsByClassName('desc');
 
       for (var i=0; i<descs.length; i++){
