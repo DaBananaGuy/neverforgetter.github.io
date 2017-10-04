@@ -133,13 +133,21 @@ function gotData(data) {
         var date = projects[k].date;
         var products = projects[k].products;
         if (date != "mm/dd/yyyy" && date != ""&& date != "//"){
-          projectList.innerHTML += "<a href='#' id='"+keys[i]+"' onclick='viewProject(this)' class='list-group-item list-group-item-project'><strong>"+title+"</strong>  <span class='ml-2 badge badge-light'> Due: "+date+"</span><span class='float-right text-left text-secondary float-left'>"+desc.slice(0,100)+"</span></a>";        
+          projectList.innerHTML += "<a href='#' id='"+keys[i]+"' onclick='viewProject(this)' class='list-group-item list-group-item-project'><strong class='mr-1 float-left'>"+title+"</strong><span class='ml-2 badge badge-light'> Due: "+date+"</span><span class='desc float-right text-left text-secondary float-left'>"+desc.slice(0,100)+"</span></a>";        
         } else{
-          projectList.innerHTML += "<a href='#' id='"+keys[i]+"' onclick='viewProject(this)' class='list-group-item list-group-item-project'><strong>"+title+"</strong>  <br/><span class='float-left text-left text-secondary'>"+desc.slice(0,100)+"</span></a>";
+          projectList.innerHTML += "<a href='#' id='"+keys[i]+"' onclick='viewProject(this)' class='list-group-item list-group-item-project'><strong class='mr-2 float-left'>"+title+"</strong>  <span class='desc float-right text-left text-secondary'>"+desc.slice(0,100)+"</span></a>";
         }
       }
     } else {
       projectList.innerHTML = "";
+    }
+    if (screen.width/2 <= 1040){
+      var descs = document.getElementsByClassName('desc');
+
+      for (var i=0; i<descs.length; i++){
+        descs[i].classList.remove('float-right');
+        descs[i].classList.add('float-left');
+      }
     }
   }
   
