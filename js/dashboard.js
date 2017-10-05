@@ -141,7 +141,6 @@ function gotData(data) {
     } else {
       projectList.innerHTML = "";
     }
-    alert(window.innerWidth);
     if (window.innerWidth <= 1040){
       var descs = document.getElementsByClassName('desc');
 
