@@ -141,6 +141,8 @@ function gotData(data) {
     } else {
       projectList.innerHTML = "";
     }
+
+    // Make description responsive
     if (window.innerWidth <= 1040){
       var descs = document.getElementsByClassName('desc');
 
