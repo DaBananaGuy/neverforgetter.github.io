@@ -193,7 +193,11 @@ function displayModal(title, desc, date, products, id){
     if(products.length >=1){
       for(var i=0;i<products.length;i++){
         var ddId = products[i][0]+'DD';
-        document.getElementById('modalProducts').innerHTML +="<a class='product-btn' id='"+id+"' onclick='check(this, "+i+")'><li class='list-group-item "+id+"'>"+products[i][0]+"<button id='"+products[i][0]+"' type='button' class='btn-nostyle' onclick='search(this)'><i class='fa fa-search'></i></button><button id='"+id+"' class='float-right btn-nostyle' onclick='deleteProduct(this, "+i+")'><i class='fa fa-times'></i></li></a><div id='"+ddId+"'></div>";
+        if(products[i][1]=="true"){
+          document.getElementById('modalProducts').innerHTML +="<a class='product-btn' id='"+id+"' onclick='check(this, "+i+")'><li class='list-group-item list-group-item-dark "+id+"'>"+products[i][0]+"<button id='"+products[i][0]+"' type='button' class='btn-nostyle' onclick='search(this)'><i class='fa fa-search'></i></button><button id='"+id+"' class='float-right btn-nostyle' onclick='deleteProduct(this, "+i+")'><i class='fa fa-times'></i></li></a><div id='"+ddId+"'></div>";
+        }else{
+          document.getElementById('modalProducts').innerHTML +="<a class='product-btn' id='"+id+"' onclick='check(this, "+i+")'><li class='list-group-item "+id+"'>"+products[i][0]+"<button id='"+products[i][0]+"' type='button' class='btn-nostyle' onclick='search(this)'><i class='fa fa-search'></i></button><button id='"+id+"' class='float-right btn-nostyle' onclick='deleteProduct(this, "+i+")'><i class='fa fa-times'></i></li></a><div id='"+ddId+"'></div>";
+        }
       } 
     }
 }
@@ -401,15 +405,34 @@ function check(elmnt, i){
     deleteProduct.called = 'false';
     return;
   } else {
-    if (projects[elmnt.id].products[i][1] == 'true'){
-      projects[elmnt.id].products[i][1] = 'false';    
+    var title = projects[elmnt.id].title;
+    var desc = projects[elmnt.id].desc;
+    var date = projects[elmnt.id].date;
+    var products = projects[elmnt.id].products;
+
+    var newProducts = products;
+
+    if (products[i][1] == 'true'){
       var product_btns = document.getElementsByClassName('product-btn');
       product_btns[i].childNodes[0].classList.remove('list-group-item-dark');
+      newProducts[i][1] = 'false';   
+      firebase.database().ref(userId+'/'+elmnt.id).set({
+        title: title,
+        desc: desc,
+        date: date,
+        products: newProducts
+      }); 
       return;  
-    } else if(projects[elmnt.id].products[i][1]=="false") {
-      projects[elmnt.id].products[i][1] = 'true';
+    } else if(products[i][1]=="false") {
       var product_btns = document.getElementsByClassName('product-btn');
       product_btns[i].childNodes[0].classList.add('list-group-item-dark');
+      newProducts[i][1] = 'true';   
+      firebase.database().ref(userId+'/'+elmnt.id).set({
+        title: title,
+        desc: desc,
+        date: date,
+        products: newProducts
+      }); 
     }
   }
 }
