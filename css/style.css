@@ -94,6 +94,9 @@ row {
 .btn-coral:hover{
   background: #FF652D;
 }
+.dark {
+  background: #555;
+}
 
 
 #closeBtn {

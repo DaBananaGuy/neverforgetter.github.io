@@ -176,6 +176,9 @@ function displayModal(title, desc, date, products, id){
     var headerTxt = document.getElementById('headerTxt');
     var modalTxt = document.getElementById('modalTxt');
     
+    deleteProduct.called = 'false';
+    search.called = 'false';
+
     headerTxt.innerHTML = title;
 
     if(date != "" && date != "//"){
@@ -189,8 +192,8 @@ function displayModal(title, desc, date, products, id){
     // Display Products
     if(products.length >=1){
       for(var i=0;i<products.length;i++){
-        var ddId = products[i]+'DD';
-        document.getElementById('modalProducts').innerHTML +="<li class='list-group-item "+id+"'>"+products[i]+"<button id='"+products[i]+"' type='button' class='btn-nostyle' onclick='search(this)'><i class='fa fa-search'></i></button><button id='"+id+"' class='float-right btn-nostyle' onclick='deleteProduct(this, "+i+")'><i class='fa fa-times'></i></button></li><div id='"+ddId+"'></div>";
+        var ddId = products[i][0]+'DD';
+        document.getElementById('modalProducts').innerHTML +="<a class='product-btn' id='"+id+"' onclick='check(this, "+i+")'><li class='list-group-item "+id+"'>"+products[i][0]+"<button id='"+products[i][0]+"' type='button' class='btn-nostyle' onclick='search(this)'><i class='fa fa-search'></i></button><button id='"+id+"' class='float-right btn-nostyle' onclick='deleteProduct(this, "+i+")'><i class='fa fa-times'></i></li></a><div id='"+ddId+"'></div>";
       } 
     }
 }
@@ -221,8 +224,8 @@ function edit(elmnt){
   modalTxt.innerHTML = '<input type="text" id="newTitle" class="form-control mb-2" value="'+title+'"><textarea id="newDesc" class="form-control mb-2">'+desc+'</textarea><input type="date" id="newDate" class="form-control mb-3" value="'+unConvertDate(date)+'"><input type="text" id="newEditProductTxt" class="form-control fifty-left" placeholder="Enter Item"><button class="half-right btn btn-md btn-primary" id="newProductBtn" onclick="newEditProduct()">Add</button><ul class="list-group mt-2 mb-3" id="editModalProducts"></ul><button class="btn btn-primary btn-lg" id="'+elmnt.id+'" onclick="save(this)">Save</button>';
 
   for(var i=0;i<products.length;i++){
-    editedProducts.push(products[i]);
-    document.getElementById('editModalProducts').innerHTML +="<li class='list-group-item'><input class='form-control' id='"+i+"' value='"+products[i]+"'></li>";
+    editedProducts.push([products[i], 'false']);
+    document.getElementById('editModalProducts').innerHTML +="<li class='list-group-item'><input class='form-control' id='"+i+"' value='"+products[i][0]+"'></li>";
   } 
 }
 
@@ -233,7 +236,7 @@ function save(elmnt) {
   var newDate = document.getElementById('newDate');
   var newProducts = [];
   for (var i=0; i<editedProducts.length;i++){
-    newProducts.push(document.getElementById(i).value);
+    newProducts.push([document.getElementById(i).value, 'false']);
   }
 
   var newNewDate = dateConvert(newDate.value);
@@ -272,7 +275,7 @@ function unConvertDate(date){
 function newProduct() {
   var newProductTxt = document.getElementById('newProductTxt');
   var productList = document.getElementById('productList');
-  productArray.push(newProductTxt.value);
+  productArray.push([newProductTxt.value, 'false']);
   productList.innerHTML += '<li class="list-group-item">'+newProductTxt.value+'</li>';
   newProductTxt.value = "";
 }
@@ -289,6 +292,8 @@ function newEditProduct() {
 
 // delete Product
 function deleteProduct(elmnt, i){
+  deleteProduct.called = 'true';
+
   elmnt.parentElement.style.display="none";
 
   var project = projects[elmnt.id];
@@ -313,6 +318,8 @@ function search(elmnt){
   var keyword = elmnt.id;
   var ddId = document.getElementById(keyword+'DD');
   var display;
+
+  search.called = 'true';
   
   if (searchedKeywords.length == 0){
     searchedKeywords.push([keyword, 'false']);
@@ -382,4 +389,27 @@ function searchMore(elmnt){
   elmnt.parentElement.innerHTML += "<button id='"+currentKeyword+"' class='btn btn-danger' onclick='searchYoutube(this)'><i class='fa fa-youtube-play'></i>  YouTube</button><button id='"+currentKeyword+"' class='btn btn-coral' onclick='searchEtsy(this)'><i class='fa fa-etsy'></i>  Etsy</button><button id='"+currentKeyword+"' class='btn btn-warning' onclick='searchWalmart(this)'> Walmart</button><button id='"+currentKeyword+"' class='btn btn-info' onclick='searchMichaels(this)'> Michaels</button>";
   document.getElementsByClassName('more-btn')[0].remove();
   //elmnt.parentNode.removeChild(elmnt);
+}
+
+
+// Check off an item
+function check(elmnt, i){ 
+  if (search.called == 'true'){
+    search.called = 'false';
+    return;
+  } else if(deleteProduct.called == 'true'){
+    deleteProduct.called = 'false';
+    return;
+  } else {
+    if (projects[elmnt.id].products[i][1] == 'true'){
+      projects[elmnt.id].products[i][1] = 'false';    
+      var product_btns = document.getElementsByClassName('product-btn');
+      product_btns[i].childNodes[0].classList.remove('list-group-item-dark');
+      return;  
+    } else if(projects[elmnt.id].products[i][1]=="false") {
+      projects[elmnt.id].products[i][1] = 'true';
+      var product_btns = document.getElementsByClassName('product-btn');
+      product_btns[i].childNodes[0].classList.add('list-group-item-dark');
+    }
+  }
 }
