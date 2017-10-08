@@ -402,6 +402,8 @@ function check(elmnt, i){
   var ddId;
   if(elmnt.classList.item(2)) {
     ddId = elmnt.classList.item(1)+' '+elmnt.classList.item(2);
+  } else if(elmnt.classList.item(3)){
+    ddId = elmnt.classList.item(1)+' '+elmnt.classList.item(2)+' '+elmnt.classList.item(3);
   } else{
     ddId = elmnt.classList.item(1);
   }
