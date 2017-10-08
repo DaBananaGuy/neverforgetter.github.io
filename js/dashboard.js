@@ -421,6 +421,10 @@ function check(elmnt, i){
     if (products[i][1] == 'true'){
       product_btn[0].childNodes[0].classList.remove('list-group-item-dark');
       newProducts[i][1] = 'false'; 
+      modalProducts.appendChild(product_btn[0]);
+      if(modalProductsCompleted.childNodes.length == 0){
+        document.getElementById('completedTxt').classList.add('hide');        
+      }
       firebase.database().ref(userId+'/'+elmnt.id).set({
         title: title,
         desc: desc,
@@ -431,6 +435,8 @@ function check(elmnt, i){
     } else if(products[i][1]=="false") {
       product_btn[0].childNodes[0].classList.add('list-group-item-dark');
       newProducts[i][1] = 'true';   
+      modalProductsCompleted.appendChild(product_btn[0]);
+      document.getElementById('completedTxt').classList.remove('hide');
       firebase.database().ref(userId+'/'+elmnt.id).set({
         title: title,
         desc: desc,
