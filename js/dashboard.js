@@ -195,7 +195,7 @@ function displayModal(title, desc, date, products, id){
         var ddId = products[i][0]+'DD';
         if(products[i][1]=="true"){
           document.getElementById('completedTxt').classList.remove('hide');
-          document.getElementById('modalProductsCompleted').innerHTML +="<a class='product-btn-"+i+" "+ddId+"' id='"+id+"' onclick='check(this, "+i+")'><li class='list-group-item list-group-item-dark "+id+"'>"+products[i][0]+"<button id='"+products[i][0]+"' type='button' class='btn-nostyle' onclick='search(this)'><i class='fa fa-search'></i></button><button id='"+id+"' class='float-right btn-nostyle' onclick='deleteProduct(this, "+i+")'><i class='fa fa-times'></i></li></a><div id='"+ddId+"'></div>";
+          document.getElementById('modalProductsCompleted').innerHTML +="<a class='product-btn-"+i+" "+ddId+"' id='"+id+"' onclick='check(this, "+i+")'><li class='list-group-item list-group-item-dark "+id+"'><i class='fa fa-check'></i> "+products[i][0]+"<button id='"+products[i][0]+"' type='button' class='btn-nostyle' onclick='search(this)'><i class='fa fa-search'></i></button><button id='"+id+"' class='float-right btn-nostyle' onclick='deleteProduct(this, "+i+")'><i class='fa fa-times'></i></li></a><div id='"+ddId+"'></div>";
         }else{
           document.getElementById('modalProducts').innerHTML +="<a class='product-btn-"+i+" "+ddId+"' id='"+id+"' onclick='check(this, "+i+")'><li class='list-group-item "+id+"'>"+products[i][0]+"<button id='"+products[i][0]+"' type='button' class='btn-nostyle' onclick='search(this)'><i class='fa fa-search'></i></button><button id='"+id+"' class='float-right btn-nostyle' onclick='deleteProduct(this, "+i+")'><i class='fa fa-times'></i></li></a><div id='"+ddId+"'></div>";
         }
@@ -427,9 +427,12 @@ function check(elmnt, i){
 
     var product_btn = document.getElementsByClassName('product-btn-'+i);
 
+    var content = product_btn[0].childNodes[0].innerHTML;    
+
     if (products[i][1] == 'true'){
       product_btn[0].childNodes[0].classList.remove('list-group-item-dark');
       newProducts[i][1] = 'false'; 
+      product_btn[0].childNodes[0].innerHTML = content.slice(27);
       modalProducts.appendChild(product_btn[0]);
       modalProducts.appendChild(document.getElementById(ddId));
       if(modalProductsCompleted.childNodes.length == 0){
@@ -445,6 +448,7 @@ function check(elmnt, i){
     } else if(products[i][1]=="false") {
       product_btn[0].childNodes[0].classList.add('list-group-item-dark');
       newProducts[i][1] = 'true';   
+      product_btn[0].childNodes[0].innerHTML = '<i class="fa fa-check"></i> '+content;
       modalProductsCompleted.appendChild(product_btn[0]);
       modalProductsCompleted.appendChild(document.getElementById(ddId));
       document.getElementById('completedTxt').classList.remove('hide');
