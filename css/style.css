@@ -43,6 +43,7 @@ row {
 }
 .list-group-item:hover{
   color: #979797;
+  cursor: pointer;
 }
 .badge{
   font-size: 13px;;
