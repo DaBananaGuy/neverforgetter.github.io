@@ -195,9 +195,9 @@ function displayModal(title, desc, date, products, id){
         var ddId = products[i][0]+'DD';
         if(products[i][1]=="true"){
           document.getElementById('completedTxt').classList.remove('hide');
-          document.getElementById('modalProductsCompleted').innerHTML +="<a class='product-btn-"+i+"' id='"+id+"' onclick='check(this, "+i+")'><li class='list-group-item list-group-item-dark "+id+"'>"+products[i][0]+"<button id='"+products[i][0]+"' type='button' class='btn-nostyle' onclick='search(this)'><i class='fa fa-search'></i></button><button id='"+id+"' class='float-right btn-nostyle' onclick='deleteProduct(this, "+i+")'><i class='fa fa-times'></i></li></a><div id='"+ddId+"'></div>";
+          document.getElementById('modalProductsCompleted').innerHTML +="<a class='product-btn-"+i+" "+ddId+"' id='"+id+"' onclick='check(this, "+i+")'><li class='list-group-item list-group-item-dark "+id+"'>"+products[i][0]+"<button id='"+products[i][0]+"' type='button' class='btn-nostyle' onclick='search(this)'><i class='fa fa-search'></i></button><button id='"+id+"' class='float-right btn-nostyle' onclick='deleteProduct(this, "+i+")'><i class='fa fa-times'></i></li></a><div id='"+ddId+"'></div>";
         }else{
-          document.getElementById('modalProducts').innerHTML +="<a class='product-btn-"+i+"' id='"+id+"' onclick='check(this, "+i+")'><li class='list-group-item "+id+"'>"+products[i][0]+"<button id='"+products[i][0]+"' type='button' class='btn-nostyle' onclick='search(this)'><i class='fa fa-search'></i></button><button id='"+id+"' class='float-right btn-nostyle' onclick='deleteProduct(this, "+i+")'><i class='fa fa-times'></i></li></a><div id='"+ddId+"'></div>";
+          document.getElementById('modalProducts').innerHTML +="<a class='product-btn-"+i+" "+ddId+"' id='"+id+"' onclick='check(this, "+i+")'><li class='list-group-item "+id+"'>"+products[i][0]+"<button id='"+products[i][0]+"' type='button' class='btn-nostyle' onclick='search(this)'><i class='fa fa-search'></i></button><button id='"+id+"' class='float-right btn-nostyle' onclick='deleteProduct(this, "+i+")'><i class='fa fa-times'></i></li></a><div id='"+ddId+"'></div>";
         }
       } 
     }
@@ -399,6 +399,13 @@ function searchMore(elmnt){
 
 // Check off an item
 function check(elmnt, i){ 
+  var ddId;
+  if(elmnt.classList.item(2)) {
+    ddId = elmnt.classList.item(1)+' '+elmnt.classList.item(2);
+  } else{
+    ddId = elmnt.classList.item(1);
+  }
+  
   if (search.called == 'true'){
     search.called = 'false';
     return;
@@ -422,6 +429,7 @@ function check(elmnt, i){
       product_btn[0].childNodes[0].classList.remove('list-group-item-dark');
       newProducts[i][1] = 'false'; 
       modalProducts.appendChild(product_btn[0]);
+      modalProducts.appendChild(document.getElementById(ddId));
       if(modalProductsCompleted.childNodes.length == 0){
         document.getElementById('completedTxt').classList.add('hide');        
       }
@@ -436,6 +444,7 @@ function check(elmnt, i){
       product_btn[0].childNodes[0].classList.add('list-group-item-dark');
       newProducts[i][1] = 'true';   
       modalProductsCompleted.appendChild(product_btn[0]);
+      modalProductsCompleted.appendChild(document.getElementById(ddId));
       document.getElementById('completedTxt').classList.remove('hide');
       firebase.database().ref(userId+'/'+elmnt.id).set({
         title: title,
