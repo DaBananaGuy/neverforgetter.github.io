@@ -195,9 +195,9 @@ function displayModal(title, desc, date, products, id){
         var ddId = products[i][0]+'DD';
         if(products[i][1]=="true"){
           document.getElementById('completedTxt').classList.remove('hide');
-          document.getElementById('modalProductsCompleted').innerHTML +="<a class='product-btn-"+i+" "+ddId+"' id='"+id+"' onclick='check(this, "+i+")'><li class='list-group-item list-group-item-dark "+id+"'><i class='fa fa-check'></i> "+products[i][0]+"<button id='"+products[i][0]+"' type='button' class='btn-nostyle' onclick='search(this)'><i class='fa fa-search'></i></button><button id='"+id+"' class='float-right btn-nostyle' onclick='deleteProduct(this, "+i+")'><i class='fa fa-times'></i></li></a><div id='"+ddId+"'></div>";
+          document.getElementById('modalProductsCompleted').innerHTML +="<a class='product-btn-"+i+" "+ddId+"' id='"+id+"' onclick='check(this, "+i+")'><li class='list-group-item list-group-item-dark "+id+"'><i class='fa fa-check'></i> "+products[i][0]+"<button id='"+products[i][0]+"' type='button' class='btn-nostyle' onclick='search(this)'><i class='fa fa-search'></i></button><button id='"+id+"' class='float-right btn-nostyle' onclick='deleteProduct(this, "+i+")'><i class='fa fa-times'></i></li><div id='"+ddId+"'></div></a>";
         }else{
-          document.getElementById('modalProducts').innerHTML +="<a class='product-btn-"+i+" "+ddId+"' id='"+id+"' onclick='check(this, "+i+")'><li class='list-group-item "+id+"'>"+products[i][0]+"<button id='"+products[i][0]+"' type='button' class='btn-nostyle' onclick='search(this)'><i class='fa fa-search'></i></button><button id='"+id+"' class='float-right btn-nostyle' onclick='deleteProduct(this, "+i+")'><i class='fa fa-times'></i></li></a><div id='"+ddId+"'></div>";
+          document.getElementById('modalProducts').innerHTML +="<a class='product-btn-"+i+" "+ddId+"' id='"+id+"' onclick='check(this, "+i+")'><li class='list-group-item "+id+"'>"+products[i][0]+"<button id='"+products[i][0]+"' type='button' class='btn-nostyle' onclick='search(this)'><i class='fa fa-search'></i></button><button id='"+id+"' class='float-right btn-nostyle' onclick='deleteProduct(this, "+i+")'><i class='fa fa-times'></i></li><div id='"+ddId+"'></div></a>";
         }
       } 
     }
@@ -393,20 +393,11 @@ function searchMore(elmnt){
   
   elmnt.parentElement.innerHTML += "<button id='"+currentKeyword+"' class='btn btn-danger' onclick='searchYoutube(this)'><i class='fa fa-youtube-play'></i>  YouTube</button><button id='"+currentKeyword+"' class='btn btn-coral' onclick='searchEtsy(this)'><i class='fa fa-etsy'></i>  Etsy</button><button id='"+currentKeyword+"' class='btn btn-warning' onclick='searchWalmart(this)'> Walmart</button><button id='"+currentKeyword+"' class='btn btn-info' onclick='searchMichaels(this)'> Michaels</button>";
   document.getElementsByClassName('more-btn')[0].remove();
-  //elmnt.parentNode.removeChild(elmnt);
 }
 
 
 // Check off an item
 function check(elmnt, i){ 
-  var ddId;
-  if(elmnt.classList.item(2)) {
-    ddId = elmnt.classList.item(1)+' '+elmnt.classList.item(2);
-  } else if(elmnt.classList.item(3)){
-    ddId = elmnt.classList.item(1)+' '+elmnt.classList.item(2)+' '+elmnt.classList.item(3);
-  } else{
-    ddId = elmnt.classList.item(1);
-  }
   
   if (search.called == 'true'){
     search.called = 'false';
@@ -424,20 +415,18 @@ function check(elmnt, i){
 
     var modalProducts = document.getElementById('modalProducts');
     var modalProductsCompleted = document.getElementById('modalProductsCompleted');
-
     var product_btn = document.getElementsByClassName('product-btn-'+i);
 
     var content = product_btn[0].childNodes[0].innerHTML;    
 
-    if (products[i][1] == 'true'){
+    if (products[i][1] == 'true'){      
       product_btn[0].childNodes[0].classList.remove('list-group-item-dark');
       newProducts[i][1] = 'false'; 
       product_btn[0].childNodes[0].innerHTML = content.slice(27);
       modalProducts.appendChild(product_btn[0]);
-      modalProducts.appendChild(document.getElementById(ddId));
       if(modalProductsCompleted.childNodes.length == 0){
         document.getElementById('completedTxt').classList.add('hide');        
-      }
+      } 
       firebase.database().ref(userId+'/'+elmnt.id).set({
         title: title,
         desc: desc,
@@ -450,8 +439,7 @@ function check(elmnt, i){
       newProducts[i][1] = 'true';   
       product_btn[0].childNodes[0].innerHTML = '<i class="fa fa-check"></i> '+content;
       modalProductsCompleted.appendChild(product_btn[0]);
-      modalProductsCompleted.appendChild(document.getElementById(ddId));
-      document.getElementById('completedTxt').classList.remove('hide');
+      document.getElementById('completedTxt').classList.remove('hide'); 
       firebase.database().ref(userId+'/'+elmnt.id).set({
         title: title,
         desc: desc,
