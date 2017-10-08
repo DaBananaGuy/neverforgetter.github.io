@@ -148,11 +148,24 @@ function gotData(data) {
 
       for (var i=0; i<descs.length; i++){
         if(descs[i].innerHTML.length < 25){
-          continue;
+          if(window.innerWidth <= 974){
+            descs[i].classList.remove('float-right');
+            descs[i].classList.add('float-left');
+          } else{
+            continue;
+          }
         }else {
           descs[i].classList.remove('float-right');
           descs[i].classList.add('float-left');
         }
+      }
+    }
+    if (window.innerWidth > 1040){
+      var descs = document.getElementsByClassName('desc');
+
+      for (var i=0; i<descs.length; i++){
+        descs[i].classList.add('float-right');
+        descs[i].classList.remove('float-left');
       }
     }
   }
